@@ -1,0 +1,255 @@
+{% extends 'helper/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+<div class="container">
+
+
+<!-- ============================  FILTER TOP  ================================= -->
+<div class="card mb-3">
+	<div class="card-body">
+		<ol class="breadcrumb float-left">
+			<li class="breadcrumb-item"><a href="#">Home</a></li>
+			<li class="breadcrumb-item"><a href="#">Category name</a></li>
+			<li class="breadcrumb-item active">Item details</li>
+		</ol>
+	</div> <!-- card-body .// -->
+</div> <!-- card.// -->
+<!-- ============================ FILTER TOP END.// ================================= -->
+
+
+<div class="row">
+	<aside class="col-md-2">
+	<form method='POST'>
+		{% csrf_token %}
+
+	{% comment %} <article class="filter-group">
+		<h6 class="title">
+			<a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_2"> Brands </a>
+		</h6>
+		<div class="filter-content collapse show" id="collapse_2">
+			<div class="inner">
+				{% for prb in products %}
+					<label class="custom-control custom-checkbox">
+					<input type="checkbox" checked="" class="custom-control-input">
+					<div class="custom-control-label">
+						{% if prb.manufacture not in brands %}
+							{{ prb.manufacture }}  
+						
+						<b class="badge badge-pill badge-light float-right">120</b>  </div>
+					</label>
+				{% endfor %}
+			</div> <!-- inner.// -->
+		</div>
+	</article> <!-- filter-group .// --> {% endcomment %}
+	<article class="filter-group">
+		<h6 class="title">
+			<a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_3"> Price range </a>
+		</h6>
+		<div class="filter-content collapse show" id="collapse_3">
+			<div class="inner">
+				{% comment %} <input type="range" class="custom-range" min="0" max="100" name=""> {% endcomment %}
+				<div class="form-row">
+				<div class="form-group col-md-6">
+				  <label>Min</label>
+				  <input class="form-control" placeholder="UZS 0" type="number" name='min'>
+				</div>
+				<div class="form-group text-right col-md-6">
+				  <label>Max</label>
+				  <input class="form-control" placeholder="UZS 100000000" type="number" name='max_price'>
+				</div>
+				</div> <!-- form-row.// -->
+				<button type = 'submit' class="btn btn-block btn-primary">Apply</button>
+			</div> <!-- inner.// -->
+		</div>
+	</form>
+	</article> <!-- filter-group .// -->
+	{% comment %} <article class="filter-group">
+		<h6 class="title">
+			<a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_4"> Sizes </a>
+		</h6>
+		<div class="filter-content collapse show" id="collapse_4">
+			  <div class="inner">
+			  	<label class="checkbox-btn">
+				    <input type="checkbox">
+				    <span class="btn btn-light"> XS </span>
+				  </label>
+
+				  <label class="checkbox-btn">
+				    <input type="checkbox">
+				    <span class="btn btn-light"> SM </span>
+				  </label>
+
+				  <label class="checkbox-btn">
+				    <input type="checkbox">
+				    <span class="btn btn-light"> LG </span>
+				  </label>
+
+				  <label class="checkbox-btn">
+				    <input type="checkbox">
+				    <span class="btn btn-light"> XXL </span>
+				  </label>
+			  </div> <!-- inner.// -->
+		</div>
+	</article> <!-- filter-group .// --> {% endcomment %}
+	
+
+	</aside> <!-- col.// -->
+	<main class="col-md-10">
+
+
+<header class="mb-3">
+		<div class="form-inline">
+			<strong class="mr-md-auto">{{ products.count }} Items found </strong>
+			<select class="mr-2 form-control">
+				<option>Latest items</option>
+				<option>Trending</option>
+				<option>Most Popular</option>
+				<option>Cheapest</option>
+			</select>
+			{% comment %} <div class="btn-group">
+				<a href="{% url 'listing-grid' %}" class="btn btn-light" data-toggle="tooltip" title="List view"> 
+					<i class="fa fa-bars"></i></a>
+				<a href="{% url 'listing-large' %}" class="btn btn-light active" data-toggle="tooltip" title="Grid view"> 
+					<i class="fa fa-th"></i></a>
+			</div> {% endcomment %}
+		</div>
+</header><!-- sect-heading -->
+
+{% for product in products %}
+	<article class="card card-product-list">
+		<div class="row no-gutters">
+			<aside class="col-md-3">
+				<a href="{% url 'detail-product' product.slug %}" class="img-wrap">
+					<span class="badge badge-danger"> NEW </span>
+					<img src="{{ product.image.url }}">
+				</a>
+			</aside> <!-- col.// -->
+			<div class="col-md-6">
+				<div class="info-main">
+					<a href="#" class="h5 title">{{ product.name }}</a>
+					<div class="rating-wrap mb-2">
+						<ul class="rating-stars">
+							<li style="width:100%" class="stars-active"> 
+								<i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+								<i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+								<i class="fa fa-star"></i> 
+							</li>
+							<li>
+								<i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+								<i class="fa fa-star"></i> <i class="fa fa-star"></i> 
+								<i class="fa fa-star"></i> 
+							</li>
+						</ul>
+						<div class="label-rating">9/10</div>
+					</div> <!-- rating-wrap.// -->
+				
+					<p class="mb-3">
+						<span class="tag"> <i class="fa fa-check"></i> Verified</span> 
+						<span class="tag"> 5 Years </span> 
+						<span class="tag"> 80 reviews </span>
+						<span class="tag"> Russia </span>
+					</p>
+
+					<p> {{ product.description }}.... </p>
+
+				</div> <!-- info-main.// -->
+			</div> <!-- col.// -->
+			<aside class="col-sm-3">
+				<div class="info-aside">
+					<div class="price-wrap">
+						<span class="h5 price">{{ product.price }}   UZS</span><small class="text-muted">/per item</small> <br>
+						<del><span class="h5 price" type='delete'>{{ product.old_price }}   UZS</span> </del>
+					</div> <!-- price-wrap.// -->
+					<small class="text-warning">Paid shipping</small>
+					
+					<p class="text-muted mt-3">Grand textile Co</p>
+					<p class="mt-3">
+						<a href="#" class="btn btn-outline-primary"> <i class="fa fa-envelope"></i> Contact supplier </a>
+						{% if product in wishlist_items %}
+							<a data-original-title="Remove from Wishlist" href="{% url 'delete_from_wishlist' pk=product.id data='listing-large' %}" class="btn btn-light "><i class="fa fa-heart" style="color: red;"></i></a>
+						{% else %}
+							<a data-original-title="Save to Wishlist" href="{% url 'add-to-wishlist' pk=product.id data='listing-large' %}" class="btn btn-light"><i class="fa fa-heart"></i></a>
+						{% endif %}
+					</p>
+ 
+
+				</div> <!-- info-aside.// -->
+			</aside> <!-- col.// -->
+		</div> <!-- row.// -->
+	</article> <!-- card-product .// -->
+{% endfor %}
+
+
+
+
+
+<nav class="mb-4" aria-label="Page navigation sample">
+  <ul class="pagination">
+
+	{% if products.has_other_pages %}
+		{% if products.has_previous %}
+			<li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}">Previous</a></li>
+		{% endif %}
+
+		{% for i in pss.page_range  %}
+			{% if i == products.number %}
+				<li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+			{% else %}
+				<li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>	
+			{% endif %}
+		{% endfor %}
+		
+		{% if products.has_next %}
+			<li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}">Next</a></li>
+		{% endif %}
+	{% endif %}
+  </ul>
+</nav>
+
+
+<div class="box text-center">
+	<p>Did you find what you were looking for？</p>
+	<a href="" class="btn btn-light">Yes</a>
+	<a href="" class="btn btn-light">No</a>
+</div>
+
+
+	</main> <!-- col.// -->
+
+</div>
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+<!-- ========================= SECTION SUBSCRIBE  ========================= -->
+<section class="padding-y-lg bg-light border-top">
+<div class="container">
+
+<p class="pb-2 text-center">Delivering the latest product trends and industry news straight to your inbox</p>
+
+<div class="row justify-content-md-center">
+	<div class="col-lg-4 col-sm-6">
+<form class="form-row">
+		<div class="col-8">
+		<input class="form-control" placeholder="Your Email" type="email">
+		</div> <!-- col.// -->
+		<div class="col-4">
+		<button type="submit" class="btn btn-block btn-warning"> <i class="fa fa-envelope"></i> Subscribe </button>
+		</div> <!-- col.// -->
+</form>
+<small class="form-text">We’ll never share your email address with a third-party. </small>
+	</div> <!-- col-md-6.// -->
+</div>
+	
+
+</div>
+</section>
+<!-- ========================= SECTION SUBSCRIBE END// ========================= -->
+
+
+{% endblock %}

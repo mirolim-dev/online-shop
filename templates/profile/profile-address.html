@@ -1,0 +1,59 @@
+{% extends 'helper/base.html' %}
+{% load static %}
+{% block content %}
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg-gray">
+<div class="container">
+	<h2 class="title-page">My account</h2>
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION PAGETOP END// ========================= -->
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+	<div class="container">
+	
+	<div class="row">
+		{% include 'profile/profile-header.html' %}
+		<main class="col-md-9">
+
+		<a href="{% url 'add_profile_address' %}" class="btn btn-light mb-3"> <i class="fa fa-plus"></i> Add new address </a>
+
+        <div class="row">
+            {% for address in addresses %}
+                <div class="col-md-6">
+                    <article class="box mb-4">
+                        <h6>{{ address.city }}, {{ address.country }}</h6>
+                        {% if address.street %}
+                            <p>Street: {{ address.street }}
+                        {% endif %}
+                        {% if address.building %}
+                            <p>Building: {{ address.building }}</p>
+                        {% endif %}
+                        {% if address.floor %}
+                            <p>Floor: {{ address.floor }}
+                        {% endif %}
+                        {% if address.apartment %}
+                            ,   Apartment: {{ address.apartment }}</p>
+                        {% endif %}
+                        {% if address.is_active == True %}
+                            <br><a href="" class="btn btn-light enabled"> <i class="fa fa-check"></i> Default</a> 
+                        {% else %}
+                            <br><a href="{% url 'make_default' pk=address.id %}" class="btn btn-light enabled"> Make Default</a> 
+                        {% endif %}
+                        <a href="{% url 'update_address' pk=address.id %}" class="btn btn-light"> <i class="fa fa-pen"></i> </a>   <a href="{% url 'delete_address' pk=address.id %}" class="btn btn-light"> <i class="text-danger fa fa-trash"></i>  </a>
+                    </article>
+                </div>  <!-- col.// -->
+            {% endfor %}
+        </div> <!-- row.// -->
+
+	</main> <!-- col.// -->
+</div>
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+{% endblock %}

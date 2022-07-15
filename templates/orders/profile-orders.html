@@ -1,0 +1,96 @@
+{% extends 'helper/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg-gray">
+<div class="container">
+	<h2 class="title-page">My account</h2>
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION PAGETOP END// ========================= -->
+	
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+<div class="container">
+
+<div class="row">
+	{% include 'profile/profile-header.html' %}
+	<main class="col-md-9">
+		{% for order in orders %}
+			<article class="card mb-4">
+			<header class="card-header">
+				<a href="#" class="float-right"> <i class="fa fa-print"></i> Print</a>
+				<strong class="d-inline-block mr-3">Order ID: {{ order.id }}</strong>
+				<span>Order Date: {{ order.ordered_at }}</span>
+			</header>
+			<div class="card-body">
+				<div class="row"> 
+					<div class="col-md-8">
+						<h6 class="text-muted">Delivery to</h6>
+						<p>{{ order.first_name }} {{ order.last_name }} <br>  
+						Phone: {{ order.phone }} Email: {{ order.email }} <br>
+						Location: {{ order.country }}, {{ order.city }}, {{ order.street }}, {{ order.building }}, {{ order.floor }}, {{ building.apartment }} <br> 
+						Zip: {{ order.zip }}
+						</p>
+					</div>
+					<div class="col-md-4">
+						<h6 class="text-muted">Payment</h6>
+						<span class="text-success">
+							<i class="fab fa-lg fa-cc-visa"></i>
+							Visa  **** 4216  
+						</span>
+						<p>Subtotal: $356 <br>
+						Shipping fee:  $56 <br> 
+						<span class="b">Total:  $456 </span>
+						</p>
+					</div>
+				</div> <!-- row.// -->
+			</div> <!-- card-body .// -->
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<tbody>
+						{% for oi in order_items %}
+							{% if oi.order_id == order.id %}
+								<tr>
+									<td width="65">
+										<img src="{{ oi.product.image.url }}" class="img-xs border">
+									</td>
+									<td> 
+										<p class="title mb-0">{{ oi.product }} </p>
+										<var class="price text-muted">{{ oi.product.price }} UZS <small>/per item</small></var>
+									</td>
+									<td> Quantity: <br> {{ oi.quantity }} </td>
+									<td> Seller <br> {{ oi.product.manufacture }} </td>
+									<td width="250"> <a href="#" class="btn btn-outline-primary">Track Order</a> 
+										<div class="dropdown d-inline-block">
+											<a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-outline-secondary">More</a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<a href="#" class="dropdown-item">Return</a>
+												<a href="#"  class="dropdown-item">Cancel order</a>
+											</div>
+										</div> <!-- dropdown.// -->
+									</td>
+								</tr>
+							{% endif%}
+						{% endfor %}
+					</tbody>
+				</table>
+			</div> <!-- table-responsive .end// -->
+			</article> <!-- card order-item .// -->
+		{% endfor %}
+
+		
+
+
+	</main> <!-- col.// -->
+</div>
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
+{% endblock %}

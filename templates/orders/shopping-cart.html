@@ -1,0 +1,177 @@
+{% extends 'helper/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+<div class="container">
+
+<div class="row">
+	<main class="col-md-9">
+<div class="card">
+
+<table class="table table-borderless table-shopping-cart">
+<thead class="text-muted">
+<tr class="small text-uppercase">
+  <th scope="col">Product</th>
+  <th scope="col" width="120">Quantity</th>
+  <th scope="col" width="120">Price</th>
+  <th scope="col" class="text-right" width="200"> </th>
+</tr>
+</thead>
+<tbody>
+<form method = 'POST'>
+	{% csrf_token %}
+	{% for item in cart_items %}
+		<tr>
+			<td>
+				<figure class="itemside">
+					<div class="aside"><img src="{{ item.product.image.url }}" class="img-sm"></div>
+					<figcaption class="info">
+						<a href="#" class="title text-dark">{{ item.product.name }}</a>
+						{% if item.product.size %}
+							<p class="text-muted small">Size: {{ item.product.size }}</p>
+						{% endif %}
+						{% if item.product.color %}
+							<p class="text-muted small">Color: {{ item.product.color }}</p>
+						{% endif %}
+						{% if item.product.manufacture %}
+							<p class="text-muted small">Brand: {{ item.product.manufacture }}</p>
+						{% endif %}
+					</figcaption>
+				</figure>
+			</td>
+
+
+			<td> 
+				<div class="form-group col-md flex-grow-0">
+					<div class="input-group mb-3 input-spinner">
+						<div class="input-group-prepend">
+							<a class="btn btn-light" href="{% url 'minus_cart_item' c_pk=item.id %}" type="button" id="button-minus"> - </a>
+						</div>
+						<input type="text" class="form-control" value="{{ item.quantity }}">
+						<div class="input-group-append">
+							<a class="btn btn-light" href="{% url 'plus_product_quantity' c_pk=item.id %}" type="button" id="button-plus"> + </a>
+						</div>
+					</div>
+				</div>
+			</td>
+
+			{% comment %} <td> 
+				<select name='quantity' class="form-control">
+					<option>{{ item.quantity }}</option>
+					<option>1</option>
+					<option>2</option>	
+					<option>3</option>	
+					<option>4</option>	
+				</select> 
+			</td> {% endcomment %}
+			<td> 
+				<div class="price-wrap"> 
+					<var class="price">UZS {{ item.total_price }}</var> 
+					<small class="text-muted"> UZS {{ item.product.price }} each </small> 
+				</div> <!-- price-wrap .// -->
+			</td>
+			<td class="text-right"> 
+				{% if item.product in wishlist_items %}
+					<a data-original-title="Remove from Wishlist" href="{% url 'delete_from_wishlist' pk=item.product.id data='shop-cart' %}" class="btn btn-light" data-toggle="tooltip"><i class="fa fa-heart" style="color: red;"></i></a>
+				{% else %}
+					<a data-original-title="Save to Wishlist" href="{% url 'add-to-wishlist' pk=item.product.id data='shop-cart' %}" class="btn btn-light" data-toggle="tooltip"><i class="fa fa-heart"></i></a>
+				{% endif %}
+				<a href="{% url 'delete-from-cart' pk=item.id %}" class="btn btn-light">Remove</a>
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	<div class="card-body border-top" >
+		
+		<h1 style='display:none' id="aler_noter">{{ alert_message }} </h1>
+		{% comment %} <a href="" id="warnig_alert"  class="btn btn-primary float-md-right" > alert <i class="fa fa-chevron-right"></i> </a> {% endcomment %}
+		{% if alert_message == "" %}	
+			<a href="{% url 'add_to_order' data='add' %}" class="btn btn-primary float-md-right"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
+		{% else %}
+			<button id='more-more' type="button" class="btn btn-primary float-md-right">Make Purchase btn <i class="fa fa-chevron-right"></i></button>
+		{% endif %}
+		<a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
+	</div>	
+	<script src = "{% static 'js/newjs.js' %}"></script>
+	</div> <!-- card.// -->
+<script>
+	
+</script>
+	
+
+</form>
+<div class="alert alert-success mt-3">
+	<p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+</div>
+
+	</main> <!-- col.// -->
+	<aside class="col-md-3">
+		<div class="card mb-3">
+			<div class="card-body">
+			<form>
+				<div class="form-group">
+					<label>Have coupon?</label>
+					<div class="input-group">
+						<input type="text" class="form-control" name="" placeholder="Coupon code">
+						<span class="input-group-append"> 
+							<button class="btn btn-primary">Apply</button>
+						</span>
+					</div>
+				</div>
+			</form>
+			</div> <!-- card-body.// -->
+		</div>  <!-- card .// -->
+		<div class="card">
+			<div class="card-body">
+					<dl class="dlist-align">
+					  <dt>Total price:</dt>
+					  <dd class="text-right">USD 568</dd>
+					</dl>
+					<dl class="dlist-align">
+					  <dt>Discount:</dt>
+					  <dd class="text-right">USD 658</dd>
+					</dl>
+					<dl class="dlist-align">
+					  <dt>Total:</dt>
+					  <dd class="text-right  h5"><strong>UZS {{ total_price_in_cart }} </strong></dd>
+					</dl>
+					<hr>
+					<p class="text-center mb-3">
+						<img src="{% static 'images/misc/payments.png' %}" height="26">
+					</p>
+					
+			</div> <!-- card-body.// -->
+		</div>  <!-- card .// -->
+	</aside> <!-- col.// -->
+</div>
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name border-top padding-y">
+<div class="container">
+<h6>Payment and refund policy</h6>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+</div><!-- container // -->
+</section>
+<!-- ========================= SECTION  END// ========================= -->
+
+
+{% endblock %}

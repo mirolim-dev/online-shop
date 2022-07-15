@@ -1,0 +1,11 @@
+	<aside class="col-md-3">
+		<nav class="list-group">
+			<a class="list-group-item active" href="{% url 'profile-main' %}"> Account overview  </a>
+			<a class="list-group-item" href="{% url 'profile-address' %}"> My Address </a>
+			<a class="list-group-item" href="{% url 'profile-orders' %}"> My Orders </a>
+			<a class="list-group-item" href="{% url 'profile-wishlist' %}"> My wishlist </a>
+			{% comment %} <a class="list-group-item" href="{% url 'profile-seller' %}"> My Selling Items </a> {% endcomment %}
+			<a class="list-group-item" href="{% url 'profile-setting' %}"> Settings </a>
+			<a class="list-group-item" href="{% url 'logout' %}"> Log out </a>
+		</nav>
+	</aside> <!-- col.// -->

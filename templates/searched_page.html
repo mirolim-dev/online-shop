@@ -1,0 +1,29 @@
+{% extends "helper/base.html" %}
+{% load static %}
+{% block content %}
+<section  class="padding-bottom-sm">
+    <header class="section-heading heading-line">
+        <h4 class="title-section text-uppercase">Searched Items</h4>
+    </header>
+    {% if searched_products %}
+    <div class="row row-sm">
+                {% for s_product in searched_products %}
+                <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+                    <div class="card card-sm card-product-grid">
+                        <a href="{% url 'detail-product' s_product.slug %}" class="img-wrap"> <img src="{{s_product.image.url}}"> </a>
+                        <figcaption class="info-wrap">
+                            <a href="{% url 'detail-product' s_product.slug %}" class="title">{{ s_product.name }}</a>
+                            <div class="price mt-1">{{ s_product.price }} UZS</div>
+                            <div class="price mt-1"><span color = 'black'>{{ s_product.old_price }} UZS</span></div>
+                            <!-- price-wrap.// -->
+                        </figcaption>
+                    </div>
+                </div> <!-- col.// -->
+                {% endfor %}
+            </div> <!-- row.// -->
+    {% else %}
+        <h3>Items which are searched by you aren't exist our web site</h3>
+        <h2> Try to search another one</h2>
+    {% endif %}
+    <!-- =============== SECTION ITEMS .//END =============== -->
+{% endblock content %}

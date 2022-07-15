@@ -1,0 +1,57 @@
+{% extends 'helper/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+<div class="container">
+
+<nav class="row">
+	{% for s_category in subcategories %}
+		<div class="col-md-3">
+			<div class="card card-category">
+				<div class="img-wrap" style="background: #ffd7d7">
+					<img src="{{ s_category.image.url }}">
+				</div>
+				<div class="card-body">
+					<h4 class="card-title"><a href="{% url 'listing-large' s_category.slug %}">{{ s_category.name }}</a></h4>
+					
+				</div>
+			</div>
+		</div> <!-- col.// -->
+	{% endfor %}
+</nav> <!-- row.// -->
+
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
+<!-- ========================= SECTION SUBSCRIBE  ========================= -->
+<section class="padding-y-lg bg-light border-top">
+<div class="container">
+
+<p class="pb-2 text-center">Delivering the latest product trends and industry news straight to your inbox</p>
+
+<div class="row justify-content-md-center">
+	<div class="col-lg-4 col-sm-6">
+<form class="form-row">
+		<div class="col-8">
+		<input class="form-control" placeholder="Your Email" type="email">
+		</div> <!-- col.// -->
+		<div class="col-4">
+		<button type="submit" class="btn btn-block btn-warning"> <i class="fa fa-envelope"></i> Subscribe </button>
+		</div> <!-- col.// -->
+</form>
+<small class="form-text">We’ll never share your email address with a third-party. </small>
+	</div> <!-- col-md-6.// -->
+</div>
+	
+
+</div>
+</section>
+<!-- ========================= SECTION SUBSCRIBE END// ========================= -->
+
+{% endblock %}

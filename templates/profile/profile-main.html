@@ -1,0 +1,133 @@
+{% extends 'helper/base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="section-pagetop bg-gray">
+<div class="container">
+	<h2 class="title-page">My account</h2>
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION PAGETOP END// ========================= -->
+	
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+<div class="container">
+
+<div class="row">
+	{% include 'profile/profile-header.html' %}
+	<main class="col-md-9">
+
+		<article class="card mb-3">
+			<div class="card-body">
+				
+				<figure class="icontext">
+					{% if userinfo.image %}
+						<div class="icon">
+							<img class="rounded-circle img-sm border" src="{{ userinfo.image.url }}">
+						</div>
+					{% else %}
+						<div class="icon">
+							<img class="rounded-circle img-sm border" src="{% static 'images/default_image.png' %}">
+						</div>
+					{% endif %}
+					<div class="text">
+						<strong>{{ userinfo.first_name }} {{ userinfo.last_name }} </strong> <br> 
+						<p class="mb-2">{{ userinfo.email }}  </p> 
+						<a href="{% url 'profile-setting' %}" class="btn btn-light btn-sm">Edit</a>
+					</div>
+				</figure>
+				<hr>
+				<p>
+					<i class="fa fa-map-marker text-muted"></i> &nbsp; My address:  
+					 <br>
+					Country: {{ useraddress.country }}, City: {{ useraddress.city }},
+					Street: {{ useraddress.street }}, Building: {{ useraddress.building }}<br>
+					Floor: {{ useraddress.floor }}, Apartment: {{ useraddress.apartment }}<br>
+					{% comment %} <a href="#" class="btn-link"> Edit</a> {% endcomment %}
+					<a href="{% url 'profile-address' %}" class="btn btn-light btn-sm">Edit</a>
+				</p>
+
+				
+
+				<article class="card-group card-stat">
+					<figure class="card bg">
+						<div class="p-3">
+							 <h4 class="title">{{ orders_count }}</h4>
+							<span>Orders</span>
+						</div>
+					</figure>
+					<figure class="card bg">
+						<div class="p-3">
+							 <h4 class="title">{{ wishlist_items_count }}</h4>
+							<span>Wishlists</span>
+						</div>
+					</figure>
+					<figure class="card bg">
+						<div class="p-3">
+							 <h4 class="title">{{ awaiting_orders.count }}</h4>
+							<span>Awaiting delivery</span>
+						</div>
+					</figure>
+					<figure class="card bg">
+						<div class="p-3">
+							 <h4 class="title">{{ delivered_orders.count }}</h4>
+							<span>Delivered items</span>
+						</div>
+					</figure>
+				</article>
+				
+
+			</div> <!-- card-body .// -->
+		</article> <!-- card.// -->
+
+		<article class="card  mb-3">
+			<div class="card-body">
+				<h5 class="card-title mb-4">Recent orders </h5>	
+
+				<div class="row">
+					{% for o_itm in order_items %}
+						<div class="col-md-6">
+							<figure class="itemside  mb-3">
+								<div class="aside"><img src="{{ o_itm.product.image.url }}" class="border img-sm"></div>
+								<figcaption class="info">
+									<time class="text-muted"><i class="fa fa-calendar-alt"></i> {{ o_itm.added_at }} </time>
+									<p>{{ o_itm.product.name }} </p>
+									<span class="text-success">Order confirmed </span>
+								</figcaption>
+							</figure>
+						</div> <!-- col.// -->
+					{% endfor %}
+				{% comment %} <div class="col-md-6">
+					<figure class="itemside  mb-3">
+						<div class="aside"><img src="{% static 'images/items/2.jpg' %}" class="border img-sm"></div>
+						<figcaption class="info">
+							<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
+							<p>How to be rich</p>
+							<span class="text-success">Departured</span>
+						</figcaption>
+					</figure>
+				</div> <!-- col.// -->
+				<div class="col-md-6">
+					<figure class="itemside mb-3">
+						<div class="aside"><img src="{% static 'images/items/3.jpg' %}" class="border img-sm"></div>
+						<figcaption class="info">
+							<time class="text-muted"><i class="fa fa-calendar-alt"></i> 12.09.2019</time>
+							<p>Harry Potter book </p>
+							<span class="text-success">Shipped  </span>
+						</figcaption>
+					</figure>
+				</div> <!-- col.// --> {% endcomment %}
+			</div> <!-- row.// -->
+
+			<a href="#" class="btn btn-outline-primary btn-block"> See all orders <i class="fa fa-chevron-down"></i>  </a>
+			</div> <!-- card-body .// -->
+		</article> <!-- card.// -->
+
+	</main> <!-- col.// -->
+</div>
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'helper/base.html' %}
+{% load static %}
+{% block content %}
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg-gray">
+<div class="container">
+	<h2 class="title-page">My account</h2>
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION PAGETOP END// ========================= -->
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+<div class="container">
+
+<div class="row">
+	{% include 'profile/profile-header.html' %}
+	<main class="col-md-9">
+
+	<div class="card">
+      <div class="card-body">
+     <form class="row" method="POST" enctype="multipart/form-data">
+	 	{% csrf_token %}
+		{% if user_info != '' %}
+			<div class="col-md-9">
+				<div class="col-md">
+					{% if user_info.image %}						
+						<img src="{{ user_info.image.url }}" class="img-md rounded-circle border">
+					{% else %}						
+						<img class="img-md rounded-circle border" src="{% static 'images/default_image.png' %}">
+					{% endif %} 
+					{{form.image}}
+				</div>  <!-- col.// -->
+				<div class="form-row">
+					<div class="col form-group">
+						<label>First name</label>
+						<input type="text" class="form-control" name='first_name' value="{{ user_info.first_name }}">
+					</div> <!-- form-group end.// -->
+					<div class="col form-group">
+						<label>Last name</label>
+						<input type="text" class="form-control" name='last_name' value="{{ user_info.last_name }}">
+					</div> <!-- form-group end.// -->
+				</div> <!-- form-row.// -->
+				<div class="form-row">
+					<div class="col form-group">
+						<label>Username</label>
+						<input type="text" class="form-control" name='username' value="{{ user_info.username }}">
+					</div> <!-- form-group end.// -->
+					<div class="col form-group">
+						<label>Email</label>
+						<input type="email" class="form-control" name='email' value="{{ user_info.email }}">
+					</div> <!-- form-group en //-->
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label>zip</label>
+						<input type="text" class="form-control" name='zip' value="{{ user_info.zip }}">
+					</div> <!-- form-group end.// -->
+					<div class="form-group col-md-6">
+						<label>Phone</label>
+						<input type="text" class="form-control" name='phone' value="{{ user_info.phone }}">
+					</div> <!-- form-group end.// -->
+				</div> <!-- form-row.// -->
+
+				<button class="btn btn-primary" type='submit'>Save</button>	
+				<button class="btn btn-light">Change password</button>	
+
+				<br><br><br><br><br><br>
+
+			</div> <!-- col.// -->
+
+		{% else %}
+			<div class="col-md-9">
+				<div class="col-md">
+					<img class="img-md rounded-circle border" src="{% static 'images/default_image.png' %}">
+						<i class="fa fa-camera" class="rasm2"><input type="file" name='image'></i>
+				</div>  <!-- col.// -->
+				<div class="form-row">
+					<div class="col form-group">
+						<label>First name</label>
+						<input type="text" class="form-control" name='first_name' value="{{ user.first_name }}">
+					</div> <!-- form-group end.// -->
+					<div class="col form-group">
+						<label>Last name</label>
+						<input type="text" class="form-control" name='last_name' value="{{ user.last_name }}">
+					</div> <!-- form-group end.// -->
+				</div> <!-- form-row.// -->
+				<div class="form-row">
+					<div class="col form-group">
+						<label>Username</label>
+						<input type="text" class="form-control" name='username' value="{{ user.username }}">
+					</div> <!-- form-group end.// -->
+					<div class="col form-group">
+						<label>Email</label>
+						<input type="email" class="form-control" name='email' value="{{ user.email }}">
+					</div> <!-- form-group en //-->
+				</div> <!-- form-row.// -->
+					
+				<div class="form-row">
+					<div class="form-group col-md-6">
+					<label>zip</label>
+					<input type="text" class="form-control" name='zip' value="{{ user.zip }}">
+					</div> <!-- form-group end.// -->
+						<div class="form-group col-md-6">
+							<label>Phone</label>
+							<input type="text" class="form-control" name='phone' placeholder='example: +998999194675'>
+						</div> <!-- form-group end.// -->
+				</div> <!-- form-row.// -->
+
+				<button class="btn btn-primary" type='submit'>Save</button>	
+				<button class="btn btn-light">Change password</button>	
+
+				<br><br><br><br><br><br>
+
+			</div> <!-- col.// -->
+     	{% endif %}	
+      </form>
+      </div> <!-- card-body.// -->
+    </div> <!-- card .// -->
+
+	</main> <!-- col.// -->
+</div>
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+{% endblock %}
