@@ -2,7 +2,6 @@ from django.core.checks.messages import Error
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from numpy import rec
 
 from orders import models as o_mdl
 from . import forms
@@ -12,8 +11,10 @@ from . import models
 def profile_main_view(request):
     user_orders = o_mdl.Order.objects.filter(user=request.user)
     
-    
-    order_items = o_mdl.OrderItem.objects.filter(order_id = str(user_orders.last().id))
+    try:
+        order_items = o_mdl.OrderItem.objects.filter(order_id = str(user_orders.last().id))
+    except:
+        order_items = None
     try:
         userinfo = models.UserInfo.objects.get(username=request.user.username)
     except:
