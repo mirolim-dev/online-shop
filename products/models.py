@@ -14,7 +14,7 @@ class CategoryModel(models.Model):
         
     name = models.CharField(max_length=150)
     slug = models.CharField(max_length=250, null=True)
-    image = models.ImageField(upload_to = 'static/images/pictures/category', null=True)
+    image = models.ImageField(upload_to = 'category/', null=True)
     shortly_description = models.CharField(max_length=250, blank=True, null=True)
     shortly_comment = models.CharField(max_length=300, blank=True, null=True)
     
@@ -34,7 +34,7 @@ class SubcategoryModel(models.Model):
     location = models.CharField(max_length=120, blank=True, null=True)
     name = models.CharField(max_length=150, null=True)
     slug = models.CharField(max_length=250, null=True)
-    image = models.ImageField(upload_to = 'static/images/pictures/subcategory', null=True)
+    image = models.ImageField(upload_to = 'subcategory/', null=True)
     
     def __str__(self):
         return self.name
@@ -50,7 +50,7 @@ class ProductModel(models.Model):
     # Foreign keys
     category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(SubcategoryModel, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='static/images/pictures/product', null=True)
+    image = models.ImageField(upload_to='product/', null=True)
     subcategory_slug = models.CharField(max_length=250, null=True)
     name = models.CharField(max_length=250)
     slug = models.CharField(max_length=250)
@@ -66,5 +66,5 @@ class ProductModel(models.Model):
         return self.name
     
 class Product_images(models.Model):
-    image = models.ImageField(upload_to='static/images/pictures/product', null=True)  
+    image = models.ImageField(upload_to='product/inlines/', null=True)  
     product = ForeignKey(ProductModel, on_delete=models.CASCADE, related_name="product_images", null=True)  

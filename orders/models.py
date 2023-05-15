@@ -93,7 +93,7 @@ class OrderItem(models.Model):
     class Meta:
         verbose_name = 'Order Item'
         verbose_name_plural = 'Order Items'
-    order_id = models.CharField(max_length=20)
-    product = models.ForeignKey(mdl.ProductModel, on_delete=models.CASCADE)
+    order_id = models.CharField(max_length=20, default='00000')
+    product = models.ForeignKey(mdl.ProductModel, on_delete=models.CASCADE, null=True)
     quantity = models.IntegerField()
     added_at = models.DateTimeField(auto_now_add=True)

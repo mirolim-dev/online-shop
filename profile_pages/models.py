@@ -27,7 +27,7 @@ class UserInfo(models.Model):
         verbose_name_plural = 'User_informations'
     first_name = models.CharField(max_length=50, null=True)
     last_name = models.CharField(max_length=50, null=True)
-    image = models.ImageField(upload_to = 'static/images/pictures/profiles', null=True, blank=True, default='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.zooniverse.org%2Fprojects%2Fpenguintom79%2Fpenguin-watch&psig=AOvVaw3znYM4x-Z6U1aNeuECcWYg&ust=1639545794567000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPjdrsbG4vQCFQAAAAAdAAAAABAH')
+    image = models.ImageField(upload_to = 'profiles/', null=True, blank=True, default='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.zooniverse.org%2Fprojects%2Fpenguintom79%2Fpenguin-watch&psig=AOvVaw3znYM4x-Z6U1aNeuECcWYg&ust=1639545794567000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPjdrsbG4vQCFQAAAAAdAAAAABAH')
     username = models.CharField(max_length=50, null=True, help_text='username')
     email = models.EmailField()
     zip = models.IntegerField(help_text='enter your pochta code')
@@ -40,7 +40,7 @@ class Default_avatar(models.Model):
     class Meta:
         verbose_name = 'default user avatar'
         verbose_name_plural = 'default user avatars'
-    avatar = models.ImageField(upload_to = 'static/images/pictures/avatars')
+    avatar = models.ImageField(upload_to = 'avatars/')
     is_active = models.BooleanField(default=True)
     
     def __str__(self):
