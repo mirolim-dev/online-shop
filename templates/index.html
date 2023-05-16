@@ -153,7 +153,7 @@
 				<a href="{% url 'listing-large' sbc.slug %}" class="item"> 
 					<div class="card-body">
 						<h6 class="title">{{ sbc.name }}  </h6>
-						<img class="img-sm float-right" src="{{ sbc.image }}"> 
+						<img class="img-sm float-right" src="{{ sbc.image.url }}"> 
 						<p class="text-muted"><i class="fa fa-map-marker-alt"></i> {{ sbc.location }}</p>
 					</div>
 				</a>
